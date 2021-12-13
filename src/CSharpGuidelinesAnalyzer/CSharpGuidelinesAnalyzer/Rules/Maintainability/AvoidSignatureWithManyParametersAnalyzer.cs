@@ -314,7 +314,7 @@ namespace CSharpGuidelinesAnalyzer.Rules.Maintainability
         {
             public BaseAnalysisContext<TTarget> Context { get; }
 
-            public int MaxParameterCount => isConstructor ? settings.MaxConstructorParameterCount : settings.MaxParameterCount;
+            public int MaxParameterCount => isConstructor ? 1000 : settings.MaxParameterCount;
 
             [NotNull]
             private readonly ParameterSettings settings;
