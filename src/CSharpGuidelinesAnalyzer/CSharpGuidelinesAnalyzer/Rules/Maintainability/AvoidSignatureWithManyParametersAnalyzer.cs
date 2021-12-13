@@ -15,6 +15,7 @@ namespace CSharpGuidelinesAnalyzer.Rules.Maintainability
     public sealed class AvoidSignatureWithManyParametersAnalyzer : DiagnosticAnalyzer
     {
         private const int DefaultMaxParameterCount = 3;
+        private const int DefaultMaxConstructorParameterCount = 15;
 
         private const string Title = "Signature contains too many parameters";
         private const string ParameterCountMessageFormat = "{0} contains {1} parameters, which exceeds the maximum of {2} parameters.";
@@ -92,7 +93,7 @@ namespace CSharpGuidelinesAnalyzer.Rules.Maintainability
         private static ParameterSettings GetParameterSettings([NotNull] AnalyzerSettingsReader settingsReader, [NotNull] SyntaxTree syntaxTree)
         {
             int maxParameterCount = settingsReader.TryGetInt32(syntaxTree, MaxParameterCountKey, 0, 255) ?? DefaultMaxParameterCount;
-            int maxConstructorParameterCount = settingsReader.TryGetInt32(syntaxTree, MaxConstructorParameterCountKey, 0, 255) ?? maxParameterCount;
+            int maxConstructorParameterCount = settingsReader.TryGetInt32(syntaxTree, MaxConstructorParameterCountKey, 0, 255) ?? DefaultMaxConstructorParameterCount;
 
             return new ParameterSettings(maxParameterCount, maxConstructorParameterCount);
         }
@@ -314,7 +315,7 @@ namespace CSharpGuidelinesAnalyzer.Rules.Maintainability
         {
             public BaseAnalysisContext<TTarget> Context { get; }
 
-            public int MaxParameterCount => isConstructor ? 1000 : settings.MaxParameterCount;
+            public int MaxParameterCount => isConstructor ? settings.MaxConstructorParameterCount : settings.MaxParameterCount;
 
             [NotNull]
             private readonly ParameterSettings settings;
