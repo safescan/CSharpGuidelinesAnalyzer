@@ -15,7 +15,7 @@ namespace CSharpGuidelinesAnalyzer.Rules.Maintainability
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class AvoidMemberWithManyStatementsAnalyzer : DiagnosticAnalyzer
     {
-        private const int DefaultMaxStatementCount = 7;
+        private const int DefaultMaxStatementCount = 15;
 
         private const string Title = "Member or local function contains too many statements";
         private const string MessageFormat = "{0} '{1}' contains {2} statements, which exceeds the maximum of {3} statements.";
